@@ -1,0 +1,23 @@
+
+--- BẮT ĐẦU GIAO DỊCH ĐẶT VÉ (TRAIN-2024-089) ---
+Dữ liệu đầu vào: {
+  bookingId: 'TRAIN-2024-089',
+  trainCode: 'SE5',
+  customerWalletId: 'W-456',
+  price: 1200000
+}
+
+>>> PHASE 1: PREPARE (Chuẩn bị) <<<
+[TrainService] Nhận lệnh PREPARE cho vé tàu: SE5
+[TrainService] Giữ chỗ thành công. Phản hồi: READY
+[WalletService] Nhận lệnh PREPARE để trừ 1200000 VND từ ví: W-456
+[WalletService] LỖI: Số dư không đủ (Hiện tại: 1000000 VND). Phản hồi: ABORT
+
+>>> PHASE 2: COMMIT/ROLLBACK (Quyết định) <<<
+[Coordinator] Có ít nhất một dịch vụ trả về ABORT. Quyết định: ROLLBACK
+[TrainService] Nhận lệnh ROLLBACK cho mã đặt vé: TRAIN-2024-089
+[TrainService] Đã hủy giữ chỗ và giải phóng vé.
+[WalletService] Nhận lệnh ROLLBACK cho mã đặt vé: TRAIN-2024-089
+[WalletService] Đã hoàn tác giao dịch ví. Không có tiền bị trừ.
+
+--- GIAO DỊCH THẤT BẠI (ĐÃ HOÀN TÁC) ---
